@@ -1,0 +1,207 @@
+---
+import generalSettings from '../content/settings/general.json';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = generalSettings.siteName, 
+  description = generalSettings.heroTitle 
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="https://natango.org/wp-content/uploads/2025/11/logo-natango-150x150.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="https://natango.org/wp-content/uploads/2025/11/logo-natango-300x300.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="https://natango.org/wp-content/uploads/2025/11/logo-natango-300x300.png" />
+    
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+    
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
+    <Header />
+    <slot />
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg-dark: #0a0a0a;
+    --bg-card: #141414;
+    --text-primary: #ffffff;
+    --text-secondary: #b3b3b3;
+    
+    /* Nuova Palette: Blu e Lilla (dai colori del logo) */
+    --accent-red: #0693e3;       /* Blu */
+    --accent-red-hover: #29b6f6; /* Blu chiaro */
+    --accent-gold: #9b51e0;      /* Lilla */
+    --accent-gold-hover: #b57df5;/* Lilla chiaro */
+    
+    --border-color: rgba(255, 255, 255, 0.08);
+    --font-sans: 'Plus Jakarta Sans', sans-serif;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+    background-color: var(--bg-dark);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  button, .btn {
+    font-family: var(--font-sans);
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    outline: none;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2a2a2a;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3e3e3e;
+  }
+
+  /* Utilities */
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .text-gold {
+    color: var(--accent-gold);
+  }
+  
+  .text-red {
+    color: var(--accent-red);
+  }
+
+  .section-padding {
+    padding: 6rem 0;
+  }
+
+  @media (max-width: 768px) {
+    .section-padding {
+      padding: 4rem 0;
+    }
+  }
+
+  /* --- Global Scroll Animations --- */
+  .animate-on-scroll {
+    opacity: 0;
+    will-change: transform, opacity;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  /* 1. Prima Sezione: Entrata da Sinistra */
+  .fade-in-left {
+    transform: translateX(-60px);
+  }
+  .fade-in-left.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* 2. Seconda Sezione: Raggiera Concentrica */
+  .radial-scale {
+    transform: scale(0.5) rotate(-5deg);
+  }
+  .radial-scale.is-visible {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  /* Altre sezioni: Fade in Up classico */
+  .fade-in-up {
+    transform: translateY(45px);
+  }
+  .fade-in-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Delays */
+  .delay-1 {
+    transition-delay: 0.15s;
+  }
+  .delay-2 {
+    transition-delay: 0.3s;
+  }
+  .delay-3 {
+    transition-delay: 0.45s;
+  }
+</style>

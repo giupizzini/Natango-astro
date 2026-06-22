@@ -1,0 +1,113 @@
+---
+import { getCollection } from 'astro:content';
+
+const courses = await getCollection('courses');
+---
+
+<div class="accordion-container">
+  {courses.map((course, index) => (
+    <details class="accordion-item" open={index === 0}>
+      <summary class="accordion-title">
+        <span>{course.data.title}</span>
+        <span class="icon"><i class="fas fa-chevron-down"></i></span>
+      </summary>
+      <div class="accordion-content">
+        <p>{course.data.summary}</p>
+        <div class="content-body">
+          {course.body}
+        </div>
+      </div>
+    </details>
+  ))}
+</div>
+
+<style>
+  .accordion-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .accordion-item {
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: var(--transition);
+  }
+
+  .accordion-item[open] {
+    border-color: rgba(197, 168, 128, 0.3);
+    background-color: rgba(255, 255, 255, 0.03);
+  }
+
+  .accordion-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    color: var(--text-primary);
+    transition: var(--transition);
+  }
+
+  /* Rimuove l'icona freccia di default su Safari e Chrome */
+  .accordion-title::-webkit-details-marker {
+    display: none;
+  }
+
+  .accordion-title:hover {
+    color: var(--accent-gold);
+    background-color: rgba(255, 255, 255, 0.01);
+  }
+
+  .accordion-title .icon {
+    font-size: 0.9rem;
+    transition: transform 0.3s ease;
+    color: var(--accent-gold);
+  }
+
+  .accordion-item[open] .accordion-title .icon {
+    transform: rotate(180deg);
+  }
+
+  .accordion-content {
+    padding: 0 1.5rem 1.5rem;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    border-top: 1px solid transparent;
+  }
+
+  .accordion-item[open] .accordion-content {
+    border-top-color: var(--border-color);
+    animation: slideDown 0.3s ease-out;
+  }
+
+  .accordion-content p {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .content-body {
+    white-space: pre-line;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
