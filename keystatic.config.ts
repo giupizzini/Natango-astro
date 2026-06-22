@@ -67,11 +67,11 @@ export default config({
             location: fields.select({
               label: 'Sede',
               options: [
-                { label: 'Mandrione', value: 'Mandrione' },
-                { label: 'Tuscolana', value: 'Tuscolana' },
+                { label: 'Tango Loft', value: 'Tango Loft' },
+                { label: 'Gotan Club', value: 'Gotan Club' },
                 { label: 'Entrambe / Online', value: 'Entrambe' },
               ],
-              defaultValue: 'Mandrione',
+              defaultValue: 'Tango Loft',
             }),
             info: fields.text({ label: 'Note extra (es. Lezione di prova)', defaultValue: '' }),
           }),
