@@ -252,12 +252,12 @@ const sortedLessons = [...lessons].sort((a, b) => {
     font-size: 0.8rem;
     letter-spacing: 0.08em;
     color: var(--accent-gold);
-    padding: 1.2rem 1.5rem;
+    padding: 1.2rem 1rem;
     border-bottom: 2px solid var(--border-color);
   }
 
   .schedule-table td {
-    padding: 1.2rem 1.5rem;
+    padding: 1.2rem 1rem;
     border-bottom: 1px solid var(--border-color);
     color: var(--text-secondary);
   }
@@ -292,6 +292,8 @@ const sortedLessons = [...lessons].sort((a, b) => {
     padding: 0.2rem 0.6rem;
     border-radius: 4px;
     text-transform: uppercase;
+    white-space: nowrap;
+    display: inline-block;
   }
 
   .badge-location.tango-loft {
