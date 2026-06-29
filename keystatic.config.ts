@@ -6,7 +6,7 @@ export default config({
       ? { kind: 'cloud' }
       : { kind: 'local' },
   cloud: {
-    project: 'gpizzinistm/natango-astro',
+    project: 'natango/natango-astro',
   },
   singletons: {
     settings: singleton({
